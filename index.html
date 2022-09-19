@@ -44,6 +44,7 @@
             <div class="col-4" id="result"></div>
             <div class="col-4"></div>
         </div>
+      
 </body>
 <script>
     function search() {
@@ -54,34 +55,33 @@
     function displayData(cityDetails) {
         cname = cityDetails.name
         temp = cityDetails.main.temp
-        weathertype = cityDetails.weather.main
+        weathertype = cityDetails.weather[0].main
         windspeed = cityDetails.wind.speed
         lattitude = cityDetails.coord.lat
         longitude = cityDetails.coord.lon
 
 
-//         htmldata = `
-//         <div class="card" style="width: 18rem;">
-//   <div class="card-body">
-//     <h5 class="card-title">${cname}</h5>
-//     <h6 class="card-subtitle mb-2 text-muted">${temp}</h6>
-//     <p class="card-text">${weathertype}</p>
-//     <a href="#" class="card-link">${windspeed}</a>
-//     <a href="#" class="card-link">${lattitude},${longitude}</a>
-//   </div>
-// </div>
-//         `
-
-htmldata=`
+        htmldata = `
 <div class="row">
-            <div class="col" style="color:white">${cname}</div>
-            <div class="col" style="color:white">${temp}</div>
-            <div class="col" style="color:white">${weathertype}</div>
-            <div class="col" style="color:white">${windspeed}</div>
-        </div>
+            <div class="col" style="color:white">
+                <i class="fa-solid fa-earth-americas"></i>
+                ${cname}</div>
+            <div class="col" style="color:white">
+                <i class="fa-solid fa-temperature-three-quarters"></i>
+                ${temp}</div>
+            <div class="col" style="color:white">
+                <i class="fa-solid fa-cloud"></i>
+                ${weathertype}</div>
+            <div class="col" style="color:white">
+                <i class="fa-solid fa-wind"></i>
+                ${windspeed}</div>
+                <div class="col" style="color:white">
+            <i class="fa-solid fa-location-pin"></i>
+                ${lattitude},${longitude}</div>
+         </div>
+         
+        
 `
-
-
         result.innerHTML = htmldata
     }
 
