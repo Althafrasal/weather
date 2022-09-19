@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/675ad92f7a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body style="background-image:url(/IMG/63283541c982e.png);background-size: cover;">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h1 class="text-center mt-5 p-3"
+                style="color:#094479;font-family:'josefin Sans', sans-serif; font-weight: bolder;background-color:#90b8cf; border-radius: 10px;">
+                Weather Forecast</h1>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class=" mt-5 p-3">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <input type="text" placeholder="city name" class="form-control" id="cname">
+            </div>
+            <div class="col-4">
+                <button type="button" class="btn btn-dark" onclick="search()"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4" id="result"></div>
+            <div class="col-4"></div>
+        </div>
+</body>
+<script>
+    function search() {
+        city = cname.value
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=5b4bee0ba241d092159faf007e166080`).then(res => res.json())
+            .then(data => displayData(data))
+    }
+    function displayData(cityDetails) {
+        cname = cityDetails.name
+        temp = cityDetails.main.temp
+        weathertype = cityDetails.weather.main
+        windspeed = cityDetails.wind.speed
+        lattitude = cityDetails.coord.lat
+        longitude = cityDetails.coord.lon
+
+
+//         htmldata = `
+//         <div class="card" style="width: 18rem;">
+//   <div class="card-body">
+//     <h5 class="card-title">${cname}</h5>
+//     <h6 class="card-subtitle mb-2 text-muted">${temp}</h6>
+//     <p class="card-text">${weathertype}</p>
+//     <a href="#" class="card-link">${windspeed}</a>
+//     <a href="#" class="card-link">${lattitude},${longitude}</a>
+//   </div>
+// </div>
+//         `
+
+htmldata=`
+<div class="row">
+            <div class="col" style="color:white">${cname}</div>
+            <div class="col" style="color:white">${temp}</div>
+            <div class="col" style="color:white">${weathertype}</div>
+            <div class="col" style="color:white">${windspeed}</div>
+        </div>
+`
+
+
+        result.innerHTML = htmldata
+    }
+
+</script>
+
+</html>
